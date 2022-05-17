@@ -9,15 +9,16 @@
 				return $this->person2;
 			} else return $this->person1;
 		}
-		
 		function __construct($par1,$par2) {
 			$this->person1 = $par1;
 			$this->person2 = $par2;
+			$this->person1->setMarriage($this);
+			$this->person2->setMarriage($this);
 		}
 	}
 	
 	class Person {
-		var $name;
+	    var $name;
 	    var $age;
 	    var $gender;
 	    var $marriage;
@@ -27,18 +28,13 @@
 	    }
 	    
 	    function marriageStatus() {
-	    	
 	    	if(isset($this->marriage)) {
-
 	    		$partner = $this->marriage->getPartner($this->name);
-
-	    		echo "The person {$this->name}, is currently happily married to the {$partner->gender} {$partner->name}.";
-
+	    		return "The person {$this->name}, is currently happily married to the {$partner->gender} {$partner->name}.";
 	    	} else {
 	    		return "{$this->name} is {$this->age} years old and would love to be married but no one will love them because they can't code :(";
 	    	}
 	    }
-		
 		function __construct($par1, $par2, $par3) {
 			$this->name = $par1;
 			$this->age = $par2;
@@ -53,9 +49,6 @@
 	$lickem = new Person("Lickem", 21, "Male");
 
 	$newMarriage = new MarriageCert($john, $alice);
-
-	$alice->setMarriage($newMarriage);
-	$john->setMarriage($newMarriage);
 	
 	echo $john->marriageStatus()."\n";
 	echo $alice->marriageStatus(). "\n";
